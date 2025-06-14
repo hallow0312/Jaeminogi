@@ -471,6 +471,9 @@ GameObject:
   m_Component:
   - component: {fileID: 562290318}
   - component: {fileID: 562290317}
+  - component: {fileID: 562290321}
+  - component: {fileID: 562290320}
+  - component: {fileID: 562290319}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -488,7 +491,7 @@ CharacterController:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -513,7 +516,7 @@ Transform:
   m_GameObject: {fileID: 562290316}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.412, y: 1.116, z: 2.672}
+  m_LocalPosition: {x: 24.27, y: 1.87, z: 19.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -521,6 +524,52 @@ Transform:
   - {fileID: 330585546}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &562290319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562290316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4fd0346c3df01e47bfcacfc296ce8ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseSensitivity: 100
+--- !u!114 &562290320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562290316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f6797e31969b96478f7fa1bc634b70f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &562290321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562290316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ce633daae713a4baa4ca212ab5cb95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 5
+  _jumpHeight: 3
+  _gravity: -19.62
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 64
+  _groundCheck: {fileID: 562290318}
+  _groundDistance: 1.4
+  _isGrounded: 0
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,7 +630,7 @@ GameObject:
   - component: {fileID: 1624469438}
   - component: {fileID: 1624469437}
   - component: {fileID: 1624469436}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
