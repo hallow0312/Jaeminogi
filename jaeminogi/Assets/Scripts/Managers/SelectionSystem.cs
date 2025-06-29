@@ -7,23 +7,23 @@ public class SelectionSystem : MonoBehaviour
     [SerializeField] float _interactDistance = 5f;
     private Transform _lastSelection;
 
-
+    InteractableObject _rayCastingObject;
+     
     void Update()
     {
 
-        RayCastingFromMousePosition();
-
-        if (!RayCastingFromMousePosition() && _lastSelection != null)
+        bool isHit = RayCastingFromMousePosition();
+        if (!isHit && _lastSelection != null)
         {
             ResetSelect();
         }
     }
-    void ResetSelect()
+    private void ResetSelect()
     {
         _lastSelection = null;
         _info.ResetText();
     }
-    bool CalculateDistance(RaycastHit hit)
+    private bool CalculateDistance(RaycastHit hit)
     {
         Vector3 origin = Camera.main.transform.position;
         float distance = Vector3.Distance(origin, hit.point);
@@ -43,7 +43,7 @@ public class SelectionSystem : MonoBehaviour
     }
 
 
-    void SetInfoInteractName(Transform selectionTransform, InteractableObject interact)
+    private  void SetInfoInteractName(Transform selectionTransform, InteractableObject interact)
     {
         if (_lastSelection != selectionTransform)
         {
@@ -52,12 +52,20 @@ public class SelectionSystem : MonoBehaviour
             _info.SetInfo(interact.GetInteractName());
         }
     }
-
-    bool RayCastingFromMousePosition()
+    public void TryToInteract()
+    {
+        Debug.Log("Try");
+        if (_rayCastingObject != null)
+        {
+            Debug.Log(_rayCastingObject);
+            _rayCastingObject.Interact();
+        }
+    }
+    private bool RayCastingFromMousePosition()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-
+        _rayCastingObject = null;
         if (Physics.Raycast(ray, out hit))
         {
             if (CalculateDistance(hit))
@@ -67,11 +75,14 @@ public class SelectionSystem : MonoBehaviour
 
                 if (interact)
                 {
+                    _rayCastingObject = interact;
                     SetInfoInteractName(selectionTransform, interact);
                     return true;
                 }
             }
         }
+    
         return false;
     }
+  
 }

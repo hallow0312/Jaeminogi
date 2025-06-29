@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField]
+    SelectionSystem _selection;
     PlayerMovement _movement;
     PlayerInput _inputActions;
     private void Awake()
@@ -31,13 +33,18 @@ public class PlayerController : MonoBehaviour
         _inputActions.Player.Move.performed += OnPlayerMove;
         _inputActions.Player.Move.canceled += OnPlayerMoveCanceled;
         _inputActions.Player.Jump.performed += OnPlayerJump;
+        _inputActions.Player.Interact.performed += OnPlayerInteract;
         _inputActions.Enable();
     }
+
+   
+
     private void DiasbleKeyInput()
     {
         _inputActions.Player.Move.performed -= OnPlayerMove;
         _inputActions.Player.Move.canceled -= OnPlayerMoveCanceled;
         _inputActions.Player.Jump.performed -= OnPlayerJump;
+        _inputActions.Player.Interact.performed -= OnPlayerInteract;
         _inputActions.Player.Disable();
     }
     private void OnPlayerJump(InputAction.CallbackContext context)
@@ -57,6 +64,9 @@ public class PlayerController : MonoBehaviour
     {
        _movement.SetMoveInput(Vector3.zero);
     }
-
+    private void OnPlayerInteract(InputAction.CallbackContext context)
+    {
+        _selection?.TryToInteract();
+    }
     #endregion
 }

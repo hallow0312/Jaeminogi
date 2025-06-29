@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class AI_Movement : MonoBehaviour  // SIMPLE AI MOVING
+public class AI_Movement : MonoBehaviour
 {
     private Animator animator;
     private Rigidbody rb;
@@ -16,15 +16,16 @@ public class AI_Movement : MonoBehaviour  // SIMPLE AI MOVING
     private bool _isWalking;
 
     private Quaternion targetRotation;
-
     private bool _prevBool;
+
     void Start()
     {
         _prevBool = false;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
 
-        rb.isKinematic = true; // 직접 힘을 주진 않지만, MovePosition 사용할 수 있도록 설정
+        rb.useGravity = true;  
+        rb.isKinematic = false;
 
         _waitCounter = Random.Range(2f, 4f);
         _walkCounter = 0;
@@ -34,11 +35,14 @@ public class AI_Movement : MonoBehaviour  // SIMPLE AI MOVING
     {
         AIMove();
     }
+
     void UpdateRunningAnimation(bool isRun)
     {
         if (_prevBool == isRun) return;
         animator.SetBool("isRunning", isRun);
+        _prevBool = isRun;
     }
+
     void AIMove()
     {
         if (_isWalking)
@@ -48,16 +52,19 @@ public class AI_Movement : MonoBehaviour  // SIMPLE AI MOVING
             // 회전 보간
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.fixedDeltaTime * _rotationSpeed);
 
-            // 이동
-            Vector3 moveDir = transform.forward * _moveSpeed * Time.fixedDeltaTime;
-            rb.MovePosition(rb.position + moveDir);
+            // 이동 방향 적용 (중력 유지)
+            Vector3 velocity = transform.forward * _moveSpeed;
+            velocity.y = rb.velocity.y; // 중력 영향 그대로 유지
+            rb.velocity = velocity;
 
             UpdateRunningAnimation(true);
+
             if (_walkCounter <= 0f)
             {
                 _isWalking = false;
                 _waitCounter = Random.Range(2f, 4f);
                 UpdateRunningAnimation(false);
+                rb.velocity = new Vector3(0f, rb.velocity.y, 0f); // 이동 멈춤, y는 중력 유지
             }
         }
         else
