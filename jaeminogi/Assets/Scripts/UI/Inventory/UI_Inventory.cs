@@ -35,7 +35,7 @@ namespace Inventory.UI
             _contentPanel = Utils.FindChild(GetObject((int)GameObjects.InventoryContent), "BG", true).GetComponent<RectTransform>();
             _mouseFollower = GetObject((int)GameObjects.MouseFollower)?.GetComponent<MouseFollower>();
             _mouseFollower?.Init();
-
+            InitializeInventoryUI(21);
             Hide();
             return true;
         }
@@ -46,7 +46,7 @@ namespace Inventory.UI
             int count = 0;
             for (int i = 0; i < inventorySize; i++)
             {
-                Managers.Resource.Instantiate("ItemSlot", callback: (obj) =>
+                Managers.Resource.Instantiate("Slot", callback: (obj) =>
                 {
 
                     UI_InventoryItem uiItem = obj.GetComponent<UI_InventoryItem>();

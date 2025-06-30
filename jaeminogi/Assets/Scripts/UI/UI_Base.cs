@@ -13,7 +13,7 @@ public class UI_Base : MonoBehaviour
     public virtual bool Init()
     {
         if (_init) return false;
-        //Managers.Init();
+        Managers.Init();
         _init = true;
         return true;
     }
