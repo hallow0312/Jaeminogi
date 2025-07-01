@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PickUpObject : InteractableObject,IPickable
+public class PickUpItem : InteractableObject,IPickable
 {
+    [SerializeField] int _itemID;
     public void PickUp()
     {
         Debug.Log($"{ItemName}: PickUp");

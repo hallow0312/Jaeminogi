@@ -18,7 +18,7 @@ namespace Inventory.UI
         [SerializeField] RectTransform _contentPanel;
 
         [SerializeField] MouseFollower _mouseFollower;
-      
+        [SerializeField] int _inventorySize = 21;
 
         List<UI_InventoryItem> _listOfUiItems = new List<UI_InventoryItem>();
 
@@ -35,7 +35,8 @@ namespace Inventory.UI
             _contentPanel = Utils.FindChild(GetObject((int)GameObjects.InventoryContent), "BG", true).GetComponent<RectTransform>();
             _mouseFollower = GetObject((int)GameObjects.MouseFollower)?.GetComponent<MouseFollower>();
             _mouseFollower?.Init();
-            InitializeInventoryUI(21);
+
+            InitializeInventoryUI(_inventorySize);
             Hide();
             return true;
         }
@@ -80,7 +81,7 @@ namespace Inventory.UI
         public void UpdateData(int itemIndex, Sprite itemImage, int itemQuantity)
         {
             if (_listOfUiItems.Count > itemIndex)
-                _listOfUiItems[itemIndex].SetData(itemImage, itemQuantity);
+                _listOfUiItems[itemIndex].SettingSlot(itemImage, itemQuantity);
         }
 
         private void HandleShowItemActions(UI_InventoryItem item)
@@ -167,7 +168,7 @@ namespace Inventory.UI
             _listOfUiItems.RemoveAll(item => item == null);
             foreach (var item in _listOfUiItems)
             {
-                item.ResetData();
+                item.ResetSlot();
                 item.Deselect();
             }
         }

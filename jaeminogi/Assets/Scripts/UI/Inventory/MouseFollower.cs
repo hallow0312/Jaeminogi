@@ -41,7 +41,7 @@ public class MouseFollower : MonoBehaviour, IDragHandler
     {
         gameObject.SetActive(true);
         _isFollowing = true;
-        _inventoryItem.SetData(sprite, quantity);
+        _inventoryItem.SettingSlot(sprite, quantity);
     }
 
     public void StopFollowing()
