@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnPlayerInteract(InputAction.CallbackContext context)
     {
-        _selection?.TryToInteract();
+       // _selection?.TryToInteract();
     }
     #endregion
 }
