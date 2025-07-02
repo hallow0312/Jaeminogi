@@ -24,9 +24,11 @@ public class UI_ItemInfo : UI_Base
         ResetInfo();
         return true;
     }
-    public void SetItemInfo(Sprite sprite, string  name)
+    public void SetItemInfo(Sprite sprite, string name)
     {
+        if(sprite!=null)
         GetImage((int)Images.ItemImage).sprite = sprite;
+        
         GetText((int)Texts.ItemName).name = name;
     }
     public void ResetInfo()
